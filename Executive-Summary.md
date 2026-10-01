@@ -89,7 +89,7 @@ The `idempiere-esx` platform comprises five key runtime zones:
 #### DALL-E 3 Image Generation Prompt
 > *A top-down enterprise software topology schematic in clean light mode. Three client boxes at top: 'Institutional FIX', 'Web / Mobile REST', 'Algo Trading gRPC'. All point down to a rectangular block 'INGESTION & PROTOCOL GATEWAY'. Data flows down through 'IN-MEMORY MATCHING ENGINE (LMAX DISRUPTOR)', then to 'APACHE KAFKA DISTRIBUTED EVENT BUS', then to 'IDEMPIERE ESX OSGI PLUGIN ENGINE' (containing sub-bullets: 'Pre-Trade Risk Validator', 'Depository Holdings Sub-ledger', 'Doc_TradeOrder Engine', 'Fact_Acct Accounting Engine'), and finally into 'CITUS DISTRIBUTED POSTGRESQL (OPENSHIFT / RHEL 10)'. Blueprint print style, minimal shadows, white background, charcoal and teal color coding. Text in Google Sans Flex 12Pt style, table/code references in Google Sans Code 12Pt style. Do not display any font names in the image.*
 
----
+![Component Interaction Topology](assets/images/Summary/2-1-Component-Interaction-Topology.png)
 
 ### 2.2 Event-Driven Messaging Layer (Kafka Integration Pattern)
 
