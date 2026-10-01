@@ -50,44 +50,6 @@ The `idempiere-esx` platform comprises five key runtime zones:
 4. **iDempiere Core Platform**: Extended OSGi environment handling user state, BPartner accounts, fee mechanics, and compliance reporting.
 5. **Persistence Layer**: Citus-sharded PostgreSQL running on Red Hat OpenShift / RHEL 10 with SEPostgreSQL MAC isolation.
 
-```
-+-----------------------------------------------------------------------------------+
-|                         IDEMPIERE-ESX RUNTIME TOPOLOGY                            |
-|                                                                                   |
-|  [ Institutional FIX ]    [ Web / Mobile REST ]     [ Algo Trading gRPC ]         |
-|             |                       |                         |                   |
-|             v                       v                         v                   |
-|  +-----------------------------------------------------------------------------+  |
-|  |                      INGESTION & PROTOCOL GATEWAY                           |  |
-|  +-----------------------------------------------------------------------------+  |
-|                                     |                                             |
-|                                     v                                             |
-|  +-----------------------------------------------------------------------------+  |
-|  |                 IN-MEMORY MATCHING ENGINE (LMAX DISRUPTOR)                  |  |
-|  +-----------------------------------------------------------------------------+  |
-|                                     |                                             |
-|                          (Execution Event Payload)                                |
-|                                     v                                             |
-|  +-----------------------------------------------------------------------------+  |
-|  |                     APACHE KAFKA DISTRIBUTED EVENT BUS                      |  |
-|  +-----------------------------------------------------------------------------+  |
-|                                     |                                             |
-|                                     v                                             |
-|  +-----------------------------------------------------------------------------+  |
-|  |                     IDEMPIERE ESX OSGI PLUGIN ENGINE                        |  |
-|  |  - Pre-Trade Risk Validator    - Depository Holdings Sub-ledger             |  |
-|  |  - Doc_TradeOrder Engine       - Fact_Acct Accounting Engine               |  |
-|  +-----------------------------------------------------------------------------+  |
-|                                     |                                             |
-|                                     v                                             |
-|  +-----------------------------------------------------------------------------+  |
-|  |               CITUS DISTRIBUTED POSTGRESQL (OPENSHIFT / RHEL 10)            |  |
-|  +-----------------------------------------------------------------------------+  |
-+-----------------------------------------------------------------------------------+
-```
-
-#### DALL-E 3 Image Generation Prompt
-> *A top-down enterprise software topology schematic in clean light mode. Three client boxes at top: 'Institutional FIX', 'Web / Mobile REST', 'Algo Trading gRPC'. All point down to a rectangular block 'INGESTION & PROTOCOL GATEWAY'. Data flows down through 'IN-MEMORY MATCHING ENGINE (LMAX DISRUPTOR)', then to 'APACHE KAFKA DISTRIBUTED EVENT BUS', then to 'IDEMPIERE ESX OSGI PLUGIN ENGINE' (containing sub-bullets: 'Pre-Trade Risk Validator', 'Depository Holdings Sub-ledger', 'Doc_TradeOrder Engine', 'Fact_Acct Accounting Engine'), and finally into 'CITUS DISTRIBUTED POSTGRESQL (OPENSHIFT / RHEL 10)'. Blueprint print style, minimal shadows, white background, charcoal and teal color coding. Text in Google Sans Flex 12Pt style, table/code references in Google Sans Code 12Pt style. Do not display any font names in the image.*
 
 ![Component Interaction Topology](assets/images/Summary/2-1-Component-Interaction-Topology.png)
 
