@@ -23,7 +23,7 @@ Standard ERP database engines are optimized for ACID compliance, multi-table JOI
 * **Command Path (Execution)**: Orders are processed in memory via an LMAX Disruptor ring buffer engine. Memory-bound validations execute within microseconds.
 * **Query & Ledger Path (Settlement & Reporting)**: Execution events write asynchronously into iDempiere's `T_Order` and `T_ExecutionReport` tables, triggering double-entry transaction generation (`Fact_Acct`) and updating depository custody sub-ledgers (`T_Security_Balance`).
 
-![CQRS separation pattern]()assets/images/Summary/1-2-CQRS-separation-pattern.png)
+![CQRS separation pattern](assets/images/Summary/1-2-CQRS-separation-pattern.png)
 
 ### 1.3 System Non-Functional Requirements (NFRs)
 
