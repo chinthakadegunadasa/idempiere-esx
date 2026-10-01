@@ -23,34 +23,7 @@ Standard ERP database engines are optimized for ACID compliance, multi-table JOI
 * **Command Path (Execution)**: Orders are processed in memory via an LMAX Disruptor ring buffer engine. Memory-bound validations execute within microseconds.
 * **Query & Ledger Path (Settlement & Reporting)**: Execution events write asynchronously into iDempiere's `T_Order` and `T_ExecutionReport` tables, triggering double-entry transaction generation (`Fact_Acct`) and updating depository custody sub-ledgers (`T_Security_Balance`).
 
-```
-+-----------------------------------------------------------------------------------+
-|                       CQRS ARCHITECTURAL SEPARATION PATTERN                       |
-|                                                                                   |
-|                         +------------------------------+                          |
-|                         |  Client / Algo Order Ingestion|                         |
-|                         +------------------------------+                          |
-|                                        |                                          |
-|                 (Synchronous)          |          (Asynchronous)                  |
-|          +-----------------------------+-----------------------------+            |
-|          |                                                           |            |
-|          v                                                           v            |
-|  +------------------------------+                         +---------------------+ |
-|  | In-Memory Matching Engine    |                         | iDempiere ESX Core  | |
-|  | - LMAX Disruptor Ring Buffer |                         | - T_Order Sub-ledger| |
-|  | - CLOB Priority Match        |                         | - Custody Holdings  | |
-|  | - Microsecond Latency        |                         | - Fact_Acct Ledger  | |
-|  +------------------------------+                         +---------------------+ |
-|                 |                                                    ^            |
-|                 +---------> [ Trade Execution Event ] ---------------+            |
-|                             (Kafka / Event Bus Payload)                           |
-+-----------------------------------------------------------------------------------+
-```
-
-#### DALL-E 3 Image Generation Prompt
-> *A light-mode architectural diagram depicting a CQRS separation pattern. Top center box: 'Client / Algo Order Ingestion'. Two paths split downward. Left path (labeled 'Synchronous') goes to an in-memory execution box containing 'In-Memory Matching Engine', 'LMAX Disruptor Ring Buffer', 'CLOB Priority Match', and 'Microsecond Latency'. Right path (labeled 'Asynchronous') connects directly to 'iDempiere ESX Core'. An arrow from the bottom of the left box labeled 'Trade Execution Event' routes through 'Kafka / Event Bus Payload' into the right 'iDempiere ESX Core' box. Clean print style, white background, thin charcoal lines, blue highlight fills. Text in Google Sans Flex 12Pt style, code labels in Google Sans Code 12Pt style. Do not display any font names in the image.*
-
----
+![CQRS separation pattern]()assets/images/Summary/1-2-CQRS-separation-pattern.png)
 
 ### 1.3 System Non-Functional Requirements (NFRs)
 
