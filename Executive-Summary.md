@@ -70,30 +70,11 @@ When an order arrives, `idempiere-esx` executes a two-phase async dispatch strat
 4. **Match Notification**: On match execution, the engine emits an event to `esx.trades.executed`.
 5. **Ledger Completion**: The iDempiere asynchronous listener consumes the execution event, executes multi-leg settlement logic (`Doc_TradeOrder`), and transfers pledged assets to final ownership balances.
 
----
-
 ### 2.3 Ledger Partitioning Strategy: Real-Time Pledged Balances vs. Asynchronous General Ledger Posting
 
 To guarantee sub-second trade turnaround while preserving strict accounting controls, `idempiere-esx` partitions asset state into two operational ledgers:
 
-```
-+-----------------------------------------------------------------------------------+
-|                        LEDGER PARTITIONING ARCHITECTURE                           |
-|                                                                                   |
-|  Operational Depository Sub-ledger              General Ledger (Fact_Acct)        |
-|  (T_Security_Balance & C_BP_BankAccount)        (Double-Entry Financial Accounting) |
-|  +-------------------------------------+        +-------------------------------+ |
-|  | Real-Time In-Memory / Database        |        | Asynchronous Batch / Event    | |
-|  | - Lock Free Balance                 |        | - Multi-leg Journal Entries   | |
-|  | - Update Pledged Balance            | ---->  | - Debit / Credit Ledger Lines | |
-|  | - Immediate Order Placement         |        | - Fee & Tax Recognitions      | |
-|  | - Microsecond Precision             |        | - End-of-Day Balancing        | |
-|  +-------------------------------------+        +-------------------------------+ |
-+-----------------------------------------------------------------------------------+
-```
-
-#### DALL-E 3 Image Generation Prompt
-> *A clean light-mode print illustration showing a side-by-side ledger partitioning comparison. Left box titled 'Operational Depository Sub-ledger (T_Security_Balance & C_BP_BankAccount)' lists: 'Real-Time In-Memory / Database', 'Lock Free Balance', 'Update Pledged Balance', 'Immediate Order Placement', 'Microsecond Precision'. An arrow points from the left box to the right box titled 'General Ledger (Fact_Acct) (Double-Entry Financial Accounting)', which lists: 'Asynchronous Batch / Event', 'Multi-leg Journal Entries', 'Debit / Credit Ledger Lines', 'Fee & Tax Recognitions', 'End-of-Day Balancing'. Crisp lines, white background, light gray shading for contrast. Standard text formatted in Google Sans Flex 12Pt style, database table names formatted in Google Sans Code 12Pt style. Do not display any font names in the image.*
+![Ledger Partitioning Strategy](assets/images/Summary/2-3-Ledger-Partitioning-Strategy.png)
 
 #### State Management Matrix
 
