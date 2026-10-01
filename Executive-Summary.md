@@ -12,34 +12,7 @@ Legacy Stock Exchange and Securities Trading cores—such as LSA (Local Stock Ex
 
 The `idempiere-esx` architecture replaces monolithic trading backbones by adapting **iDempiere ERP** as an extensible, double-entry clearing ledger, depository, and general accounting core. By decoupling order matching from settlement posting, `idempiere-esx` achieves enterprise-grade financial integrity without sacrificing sub-millisecond execution speeds.
 
-```
-+-----------------------------------------------------------------------------------+
-|                            LEGACY MONOLITHIC ARCHITECTURE                         |
-|                                                                                   |
-|  [ Trading Terminal ] ---> [ Monolithic LSA Core ] ---> [ Batch ETL (Overnight) ]  |
-|                                     |                             |               |
-|                                     v                             v               |
-|                          (Opaque State Storage)        (General Ledger / GL)      |
-+-----------------------------------------------------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|                        MODERNIZED IDEMPIERE-ESX PARADIGM                         |
-|                                                                                   |
-|  [ FIX / REST Gateway ] ---> [ LMAX Engine (Async) ] ---> [ Kafka Event Pipeline ]|
-|                                                                    |              |
-|                                                                    v              |
-|                                                        [ iDempiere ESX Core ]     |
-|                                                        - Real-time Sub-ledger     |
-|                                                        - T+1/T+2 Settlement       |
-|                                                        - Fact_Acct Postings       |
-+-----------------------------------------------------------------------------------+
-```
-
-#### DALL-E 3 Image Generation Prompt
-> *A clean, light-mode print-style technical diagram illustrating the transition from a monolithic legacy system to a modernized decoupled architecture. On the top, a shaded box labeled 'LEGACY MONOLITHIC ARCHITECTURE' shows 'Trading Terminal' sending data to 'Monolithic LSA Core', which connects to 'Batch ETL (Overnight)' and 'General Ledger'. On the bottom, a box labeled 'MODERNIZED IDEMPIERE-ESX PARADIGM' shows 'FIX / REST Gateway' pointing to 'LMAX Engine (Async)', passing through 'Kafka Event Pipeline' into 'iDempiere ESX Core' featuring 'Real-time Sub-ledger', 'T+1/T+2 Settlement', and 'Fact_Acct Postings'. High contrast, white background, slate-blue accent lines, vector schematic style. Use Google Sans Flex 12Pt style for normal labels and Google Sans Code 12Pt style for technical code terms. Do not display any font names in the image.*
-
----
+![Transition from a monolithic legacy system](assets/images/Summary/1-1-Transition-from-a-monolithic-legacy-system.png)
 
 ### 1.2 Core Architectural Paradigm: Separation of the High-Throughput Matching Layer from the Financial Settlement Ledger
 
